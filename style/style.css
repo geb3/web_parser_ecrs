@@ -1,6 +1,7 @@
 body {
     font-family: "Poppins";
     background-color: rgb(53, 53, 53);
+    color:#fff;
 }
 div {
     text-align: center;
@@ -14,9 +15,6 @@ div {
     src: url("../style/fonts/Poppins-SemiBold.ttf") format("truetype"); 
     font-style: normal; 
     font-weight: normal; 
-}
-.data {
-    color:#fff;
 }
 form {
     width: 20%;
