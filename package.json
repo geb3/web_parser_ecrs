@@ -1,0 +1,32 @@
+{
+  "name": "npm-web-parser-ecrs",
+  "description": "![](https://komarev.com/ghpvc/?username=your-geb3)",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "serve": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geb3/web_parser_ecrs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geb3/web_parser_ecrs/issues"
+  },
+  "homepage": "https://github.com/geb3/web_parser_ecrs#readme",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "js-sha256": "^0.9.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.14",
+    "nodemon": "^2.0.20"
+  }
+}

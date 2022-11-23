@@ -1,0 +1,63 @@
+body {
+    font-family: "Poppins";
+    background-color: rgb(53, 53, 53);
+}
+@font-face {
+    font-family: "Poppins"; 
+    src: url("../style/fonts/Poppins-MediumItalic.ttf") format("truetype"); 
+    font-style:italic; 
+    font-weight:lighter; 
+}
+.username {
+    appearance:none;
+    -webkit-appearance:none;
+    padding:0px;
+    border:none;
+    background-color:#0068E8;
+    color:#fff;
+    font-weight:800px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 40%;
+    text-align: center;
+    line-height: 1.5;
+}
+.username:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.header {
+    text-align: center;
+}
+.blocks {
+    float: left;
+    margin: 30px 50px 30px 40px;
+    width: 20%; 
+    background-color: rgb(235, 235, 235);
+    border-radius: 5px;
+    line-height: 0.5;
+    box-shadow: 0 0 5px #000000;
+    scale: 110%;
+}
+.blocks:hover {
+    box-shadow: 0 0 5px #0068E8;
+}
+.logs {
+    color: #1b1b1b;
+}
+#namelogs {
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+    color: #0068E8;
+}
+ul {
+    padding-left: 15px;
+}
+.example-1 .form-group{padding:1em;margin:1em}
+.example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
+.example-1 .label{width:120px;border:2px dashed grey;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
+.example-1 .label i{display:block;font-size:42px;padding-bottom:16px}
+.example-1 .label i,.example-1 .label .title{color:grey;transition:200ms color}
+.example-1 .label:hover{border:2px solid #000}
+.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
