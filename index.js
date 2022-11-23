@@ -43,19 +43,14 @@ app.post("/", urlencodedParser, (req, res) => {
     }
 })
 
-app.get('/form', function (req, res) {
-    res.setHeader('content-type', 'text/html;charset=utf-8');
-    res.write('<form action="/upload" method="POST" enctype="multipart/form-data" >');
-    res.write('<input type="file" name="photo">');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    res.end();
-})
-app.post('/upload', function(req, res) {
-    req.files.photo.mv('public/'+req.files.photo.name);
-    res.end(req.files.photo.name);
-    console.log(req.files.photo); // the uploaded file object
-  });
+app.post('/', function(req, res) {
+    req.files.xlsx.mv('public/' + req.files.xlsx.name);
+    res.end(req.files.xlsx.name);
+    console.log(req.files.xlsx);
+    res.render("panel", {username: req.body.user});
+});
+
+
 
 function startServer() {
     try {

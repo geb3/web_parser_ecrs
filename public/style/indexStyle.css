@@ -29,7 +29,11 @@ body {
 .header {
     text-align: center;
 }
-.blocks {
+hr{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.logs {
     float: left;
     margin: 30px 50px 30px 40px;
     width: 20%; 
@@ -39,11 +43,8 @@ body {
     box-shadow: 0 0 5px #000000;
     scale: 110%;
 }
-.blocks:hover {
+.logs:hover {
     box-shadow: 0 0 5px #0068E8;
-}
-.logs {
-    color: #1b1b1b;
 }
 #namelogs {
     text-align: center;
@@ -54,10 +55,18 @@ body {
 ul {
     padding-left: 15px;
 }
-.example-1 .form-group{padding:1em;margin:1em}
-.example-1 input[type=file]{outline:0;opacity:0;pointer-events:none;user-select:none}
-.example-1 .label{width:120px;border:2px dashed grey;border-radius:5px;display:block;padding:1.2em;transition:border 300ms ease;cursor:pointer;text-align:center}
-.example-1 .label i{display:block;font-size:42px;padding-bottom:16px}
-.example-1 .label i,.example-1 .label .title{color:grey;transition:200ms color}
-.example-1 .label:hover{border:2px solid #000}
-.example-1 .label:hover i,.example-1 .label:hover .title{color:#000}
+.uploadFile {
+    text-align: center;
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+    color: white;
+    border: solid 4px;
+    background-color: #0068E8;
+    border-radius: 5px;
+    border-color: #0068E8;
+    width: 19%;
+    padding-bottom: 7px;
+    padding-top: 5px;
+}
+
