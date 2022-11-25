@@ -54,6 +54,7 @@ hr{
 }
 ul {
     padding-left: 15px;
+    margin-left: 0px;
 }
 .uploadFile {
     text-align: center;
@@ -69,4 +70,13 @@ ul {
     padding-bottom: 7px;
     padding-top: 5px;
 }
-
+.notification {
+    display: block;
+    text-align: center;
+    background-color:#21c400;
+    width: 20%;
+    color: white;
+    border-radius:5px;
+    margin: auto;
+    margin-top: 15px;
+}

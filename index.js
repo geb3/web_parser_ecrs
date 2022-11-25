@@ -2,7 +2,7 @@ import express from "express";
 import path from "path";
 import sha256 from "js-sha256";
 import bodyParser from "body-parser";
-import fileUpload from "express-fileupload";
+
 
 // const sha256 = require('js-sha256');
 
@@ -12,6 +12,7 @@ import fileUpload from "express-fileupload";
 //     console.log(link);
 // }
 
+
 var app = express();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.set("view engine", "ejs");
@@ -20,8 +21,6 @@ var PORT = 3000;
 
 app.use("/public", express.static("public"));
 app.use('/favicon.ico', express.static('style/images/favicon.ico'));
-app.use(fileUpload({}));
-
 
 // app.get(("/"), (req, res) => {
 //     res.render("auth");
@@ -32,24 +31,15 @@ app.get(("/"), (req, res) => {
 })
 
 app.post("/", urlencodedParser, (req, res) => {
-    if (req.body.user != "admin" && req.body.pass != "1") {
-        console.log("Login attempt");
-        res.render("auth", {notification: "Incorrect login or password"});
-        
-    }
     if (req.body.user == "admin" && req.body.pass == "1") {
         console.log(`Logged in: ${req.body.user}`);
         res.render("panel", {username: req.body.user});
     }
+    else {
+        console.log("Login attempt");
+        res.render("auth", {notification: "Incorrect login or password"});
+    }
 })
-
-app.post('/', function(req, res) {
-    req.files.xlsx.mv('public/' + req.files.xlsx.name);
-    res.end(req.files.xlsx.name);
-    console.log(req.files.xlsx);
-    res.render("panel", {username: req.body.user});
-});
-
 
 
 function startServer() {
