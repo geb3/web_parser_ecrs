@@ -1,5 +1,6 @@
-var users = [
-    {"admin": "1"},
-]
-
-module.exports(users);
+export var users = {
+//  login: password
+    "admin": "1",
+    "george": "2",
+    "vova": "3",
+};

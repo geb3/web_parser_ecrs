@@ -1,3 +1,5 @@
-const array = [["id1", "entetyid1"], []]
+var Data = new Date().toLocaleDateString();
+var Time = new Date().toLocaleTimeString().slice(0,-3);
+var dateTime = String(Data + " " + Time);
 
-console.log(array[0]);
+console.log(dateTime);

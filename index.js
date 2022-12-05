@@ -2,21 +2,23 @@ import express from "express";
 import path from "path";
 import sha256 from "js-sha256";
 import bodyParser from "body-parser";
+import {dateTime} from './public/scripts/log.js';
+import {users} from "./users.js"
 
 var PORT = process.env.PORT ?? 3000;
 
 var app = express();
+var __dirname = path.resolve();
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 app.set("view engine", "ejs");
-const __dirname = path.resolve();
-
-
+app.set("views", path.resolve(__dirname, "views"));
 app.use("/public", express.static("public"));
 app.use('/favicon.ico', express.static('style/images/favicon.ico'));
+app.use(dateTime);
 
 function startServer() {
     try {
-        app.listen(PORT, () => {console.log(`Server has been started on address: http://localhost:${PORT}/`)});// \nPanel on address:\nhttp://localhost:${PORT}${link}\n
+        app.listen(PORT, () => {console.log(`Server has been started on address: http://localhost:${PORT}/`)});
     } 
     catch (error) {console.log(error)};
 }
@@ -32,29 +34,36 @@ startServer()
 
 
 
-// app.get(("/"), (req, res) => {
-//     res.render("auth");
-// })
-
 app.get(("/"), (req, res) => {
     res.render("auth", {notification: ""});
 })
+app.get(("/panel"), (req, res) => {
+    res.render("auth", {notification: ""});
+})
+
+
+
+function checkUsers(userName, userPass) {
+    for (let i = 0; i != (Object.keys(users).length); i++) {
+        if (userName == Object.keys(users)[i] && userPass == users[Object.keys(users)[i]]) {
+            return 1;
+        }
+    }
+    return 0;
+}
 
 app.post("/panel", urlencodedParser, (req, res) => {
-    if (req.body.user == "admin" && req.body.pass == "1") {
-        console.log(`Logged in: ${req.body.user}`);
+    let access = checkUsers(req.body.user, req.body.pass);
+    if (access == 1) {
+        console.log(`${req.dateTime} Logged in: ${req.body.user}`);
         res.render("panel", {username: req.body.user});
-        
     }
-    else {
-        console.log("Login attempt");
+    if (access == 0) {
+        console.log(`${req.dateTime} Login attempt`);
         res.render("auth", {notification: "Incorrect login or password"});
     }
 })
 
-app.post("/uploadfile", urlencodedParser, (req, res) => {
-    res.render("upload", {username: req.body.user});
-})
 
 
 
