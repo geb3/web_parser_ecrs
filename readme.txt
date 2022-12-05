@@ -1,9 +1,4 @@
-linux
 
-export PORT=5050 && node index
-
-windows
-
-set PORT=5050 && node index
+export PORT=4200 && npm run serve
 
 Загрузка файла https://dmitrytinitilov.gitbooks.io/strange-javascript/content/express/file_uploading_on_express.html

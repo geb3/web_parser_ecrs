@@ -33,25 +33,6 @@ hr{
     margin-top: 20px;
     margin-bottom: 20px;
 }
-.logs {
-    float: left;
-    margin: 30px 50px 30px 40px;
-    width: 20%; 
-    background-color: rgb(235, 235, 235);
-    border-radius: 5px;
-    line-height: 0.5;
-    box-shadow: 0 0 5px #000000;
-    scale: 110%;
-}
-.logs:hover {
-    box-shadow: 0 0 5px #0068E8;
-}
-#namelogs {
-    text-align: center;
-    display: block;
-    margin-top: 10px;
-    color: #0068E8;
-}
 ul {
     padding-left: 15px;
     margin-left: 0px;
@@ -70,13 +51,4 @@ ul {
     padding-bottom: 7px;
     padding-top: 5px;
 }
-.notification {
-    display: block;
-    text-align: center;
-    background-color:#21c400;
-    width: 20%;
-    color: white;
-    border-radius:5px;
-    margin: auto;
-    margin-top: 15px;
-}
+

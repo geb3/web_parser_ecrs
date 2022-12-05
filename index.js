@@ -3,6 +3,23 @@ import path from "path";
 import sha256 from "js-sha256";
 import bodyParser from "body-parser";
 
+var PORT = process.env.PORT ?? 3000;
+
+var app = express();
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.set("view engine", "ejs");
+const __dirname = path.resolve();
+
+
+app.use("/public", express.static("public"));
+app.use('/favicon.ico', express.static('style/images/favicon.ico'));
+
+function startServer() {
+    try {
+        app.listen(PORT, () => {console.log(`Server has been started on address: http://localhost:${PORT}/`)});// \nPanel on address:\nhttp://localhost:${PORT}${link}\n
+    } 
+    catch (error) {console.log(error)};
+}
 
 // const sha256 = require('js-sha256');
 
@@ -11,16 +28,9 @@ import bodyParser from "body-parser";
 //     link = link.padStart(65, "/");
 //     console.log(link);
 // }
+startServer()
 
 
-var app = express();
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
-app.set("view engine", "ejs");
-const __dirname = path.resolve();
-var PORT = 3000;
-
-app.use("/public", express.static("public"));
-app.use('/favicon.ico', express.static('style/images/favicon.ico'));
 
 // app.get(("/"), (req, res) => {
 //     res.render("auth");
@@ -30,10 +40,11 @@ app.get(("/"), (req, res) => {
     res.render("auth", {notification: ""});
 })
 
-app.post("/", urlencodedParser, (req, res) => {
+app.post("/panel", urlencodedParser, (req, res) => {
     if (req.body.user == "admin" && req.body.pass == "1") {
         console.log(`Logged in: ${req.body.user}`);
         res.render("panel", {username: req.body.user});
+        
     }
     else {
         console.log("Login attempt");
@@ -41,16 +52,14 @@ app.post("/", urlencodedParser, (req, res) => {
     }
 })
 
-
-function startServer() {
-    try {
-        app.listen(PORT, () => {console.log(`Server has been started on address: http://localhost:${PORT}/`)});// \nPanel on address:\nhttp://localhost:${PORT}${link}\n
-    } 
-    catch (error) {console.log(error)};
-}
+app.post("/uploadfile", urlencodedParser, (req, res) => {
+    res.render("upload", {username: req.body.user});
+})
 
 
-startServer()
+
+
+
 
 
 
