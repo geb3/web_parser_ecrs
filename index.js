@@ -1,11 +1,17 @@
 import express from "express";
+import fileUpload from 'express-fileupload';
 import path from "path";
-import sha256 from "js-sha256";
+// import sha256 from "js-sha256";
 import bodyParser from "body-parser";
 import {dateTime} from './public/scripts/log.js';
-import {users} from "./users.js"
+import {users} from "./users.js";
+import serverRoutes from "./routes/server.js";
+
+
 
 var PORT = process.env.PORT ?? 3000;
+
+
 
 var app = express();
 var __dirname = path.resolve();
@@ -15,6 +21,9 @@ app.set("views", path.resolve(__dirname, "views"));
 app.use("/public", express.static("public"));
 app.use('/favicon.ico', express.static('style/images/favicon.ico'));
 app.use(dateTime);
+app.use(serverRoutes);
+app.use(fileUpload({}));
+
 
 function startServer() {
     try {
@@ -23,13 +32,6 @@ function startServer() {
     catch (error) {console.log(error)};
 }
 
-// const sha256 = require('js-sha256');
-
-// function shaLink() {
-//     var link = sha256(String(Math.random()));
-//     link = link.padStart(65, "/");
-//     console.log(link);
-// }
 startServer()
 
 
@@ -38,6 +40,9 @@ app.get(("/"), (req, res) => {
     res.render("auth", {notification: ""});
 })
 app.get(("/panel"), (req, res) => {
+    res.render("auth", {notification: ""});
+})
+app.get(("/upload"), (req, res) => {
     res.render("auth", {notification: ""});
 })
 
@@ -56,7 +61,7 @@ app.post("/panel", urlencodedParser, (req, res) => {
     let access = checkUsers(req.body.user, req.body.pass);
     if (access == 1) {
         console.log(`${req.dateTime} Logged in: ${req.body.user}`);
-        res.render("panel", {username: req.body.user});
+        res.render("panel", {info: req.body.user});
     }
     if (access == 0) {
         console.log(`${req.dateTime} Login attempt`);
@@ -65,6 +70,12 @@ app.post("/panel", urlencodedParser, (req, res) => {
 })
 
 
+
+app.post('/upload', function(req, res) {
+    req.files.xlsx.mv('public/scripts/' + req.files.xlsx.name);
+    res.render("panel", {info: "File Upload in Server Completed"});
+    console.log(`${req.dateTime} File Upload in Server Сompleted`)
+});
 
 
 

@@ -17,11 +17,12 @@ body {
     color:#fff;
     font-weight:800px;
     font-size: 18px;
-    border-radius: 5px;
+    border-radius: 6px;
     margin-top: 10px;
     width: 40%;
     text-align: center;
     line-height: 1.5;
+    padding-bottom: 4px;
 }
 .username:hover {
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -45,10 +46,10 @@ ul {
     color: white;
     border: solid 4px;
     background-color: #0068E8;
-    border-radius: 5px;
+    border-radius: 6px;
     border-color: #0068E8;
     width: 19%;
-    padding-bottom: 7px;
+    padding-bottom: 5px;
     padding-top: 5px;
 }
 
