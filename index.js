@@ -61,7 +61,7 @@ app.post("/panel", urlencodedParser, (req, res) => {
     let access = checkUsers(req.body.user, req.body.pass);
     if (access == 1) {
         console.log(`${req.dateTime} Logged in: ${req.body.user}`);
-        res.render("panel", {info: req.body.user});
+        res.render("panel", {info: `Logged in ${req.body.user}`, preview: `Preview`});
     }
     if (access == 0) {
         console.log(`${req.dateTime} Login attempt`);
@@ -70,14 +70,21 @@ app.post("/panel", urlencodedParser, (req, res) => {
 })
 
 
-
 app.post('/upload', function(req, res) {
-    req.files.xlsx.mv('public/scripts/' + req.files.xlsx.name);
-    res.render("panel", {info: "File Upload in Server Completed"});
+    req.files.xlsx.mv('public/scripts/parser/upload_file/' + "table_data.xlsx");
+    res.render("panel", {info: "File Upload in Server Completed", preview: `Preview`});
     console.log(`${req.dateTime} File Upload in Server Сompleted`)
 });
 
 
+
+app.post("/rules", urlencodedParser, (req, res) => {
+    let rule1 = req.body.rule_1;
+    let rule2 = req.body.rule_2;
+    let rule3 = req.body.rule_3;;
+    res.render("panel", {info: "Rules Passed", preview: `${rule1} ${rule2} ${rule3}`});
+    console.log(`${req.dateTime} Rules Passed`)
+})
 
 
 

@@ -11,19 +11,74 @@
 <body>
 
     <div class="header">
-        <button class="username" type="submit">Logged in <%= info %> </button>
+        <button class="info" type="submit"><%= info %> </button>
     </div>
-    <hr>
+
+
     <div class="uploadFile">
-        <form action="/upload" method="POST" enctype="multipart/form-data" >
-            <input class="file" type="file" name="xlsx"><input class="sendFile" type="submit">
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label class="input-file">
+                <input class="file" type="file" name="xlsx">		
+                <span class="input-file-style">Select File</span>
+          </label>
+            <p><input class="sendFile" type="submit" value="Send"></p>
         </form>
+        <div class="warning">
+            <p>Support for formats only .xlsx</p>
+        </div> 
     </div>
       
-    <div class="main">
-        
-    </div>    
+       
+    <div class="form">
+        <table>
+            <td style="vertical-align: top;">
+                <form method="POST" action="/rules">
+
+                    <p><label for="rule1">Rule 1</label></p>
+                    <p><input type="text" name="rule_1" id="rule1" placeholder="Tag"></p>
+
+                    <p><label for="rule2">Rule 2</label></p>
+                    <p><input type="text" name="rule_2" id="rule1" placeholder="Tag"></p>
+
+                    <p><label for="rule3">Rule 3</label></p>
+                    <p><input type="text" name="rule_3" id="rule1" placeholder="Tag"></p>
+
+                    <button class="button" type="submit">Preview</button><button class="button" type="submit">Send</button>
+                </form>
+            </td>
+            
+            <td style="vertical-align: top;">
+                <div class="output">
+                    <textarea rows="14" cols="35" name="text" readonly="readonly"><%= preview %></textarea>
+                </div>
+            </td>
+
+            <td>
+                <div class="vl"></div>
+            </td>
+
+            <td style="vertical-align: top;">
+                <form method="POST" action="/panel">
+                
+                    <p><label for="login">Rule 1</label></p>
+                    <p><input type="text" name="user" id="rule1" placeholder="Tag #1"></p>
+
+                    <p><label for="passwd">Rule 2</label></p>
+                    <p><input type="text" name="pass" id="rule1" placeholder="Tag #2"></p>
+
+                    <button class="button" type="submit">Send</button>
+                </form>
+            </td>
+        </table>
+    </div>
 
 
+    <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+        $('.input-file input[type=file]').on('change', function(){
+            let file = this.files[0];
+            $(this).next().html(file.name);
+        });
+    </script>
 </body>
 </html>
