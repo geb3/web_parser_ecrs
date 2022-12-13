@@ -19,11 +19,13 @@
   },
   "homepage": "https://github.com/geb3/web_parser_ecrs#readme",
   "dependencies": {
+    "axios": "^1.2.1",
     "cheerio": "^1.0.0-rc.12",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
-    "fs": "^0.0.1-security"
+    "fs": "^0.0.1-security",
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "@types/express": "^4.17.14",
