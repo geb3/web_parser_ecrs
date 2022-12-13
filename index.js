@@ -5,8 +5,10 @@ import path from "path";
 import bodyParser from "body-parser";
 import {dateTime} from './public/scripts/log.js';
 import {users} from "./users.js";
+import {rulesJson} from "./public/scripts/parser/rules/rules.js";
+import {parametersJson} from "./public/scripts/parser/parameters/parameters.js";
 import serverRoutes from "./routes/server.js";
-
+import fs from 'fs';
 
 
 var PORT = process.env.PORT ?? 3000;
@@ -39,12 +41,6 @@ startServer()
 app.get(("/"), (req, res) => {
     res.render("auth", {notification: ""});
 })
-app.get(("/panel"), (req, res) => {
-    res.render("auth", {notification: ""});
-})
-app.get(("/upload"), (req, res) => {
-    res.render("auth", {notification: ""});
-})
 
 
 
@@ -70,21 +66,57 @@ app.post("/panel", urlencodedParser, (req, res) => {
 })
 
 
+
 app.post('/upload', function(req, res) {
-    req.files.xlsx.mv('public/scripts/parser/upload_file/' + "table_data.xlsx");
-    res.render("panel", {info: "File Upload in Server Completed", preview: `Preview`});
-    console.log(`${req.dateTime} File Upload in Server Сompleted`)
+    if (req.files == null) {
+        console.log(`${req.dateTime} File not Uploaded`);
+        res.render("panel", {info: "File not Uploaded", preview: `Preview`});
+    }
+    else {
+        console.log(`${req.dateTime} File Upload in Server Сompleted`)
+        req.files.xlsx.mv('public/scripts/parser/upload_file/' + "table_data.xlsx");
+        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview`});
+    }
 });
 
 
 
 app.post("/rules", urlencodedParser, (req, res) => {
-    let rule1 = req.body.rule_1;
-    let rule2 = req.body.rule_2;
-    let rule3 = req.body.rule_3;;
-    res.render("panel", {info: "Rules Passed", preview: `${rule1} ${rule2} ${rule3}`});
-    console.log(`${req.dateTime} Rules Passed`)
+    if (req.body.rule_1 == "" || req.body.rule_2 == "" || req.body.rule_3 == "") {
+        console.log(`${req.dateTime} Rules not Transmitted`)
+        res.render("panel", {info: "Rules not Transmitted", preview: `Transferred:`});        
+    }
+    else {
+        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify({"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3}));
+        console.log(`${req.dateTime} Rules Transmitted`);
+        res.render("panel", {info: "Rules Transmitted", preview: `Transferred: \n${req.body.rule_1}\n${req.body.rule_2}\n${req.body.rule_3}`});
+    }
+    
 })
+
+
+
+app.post("/start", urlencodedParser, (req, res) => {
+    if (req.body.timeoutParser == "") {
+        console.log(`${req.dateTime} `);
+        res.render("panel", {info: "Launch Interval is not Selected", preview: `Preview`});
+    }
+    else {
+        fs.writeFileSync('./public/scripts/parser/parameters/parameters.json', JSON.stringify({"timeout": req.body.timeoutParser}));
+        console.log(`${req.dateTime} Launch Parser`);
+        res.render("panel", {info: "Waiting...", preview: `Preview`});
+    }
+})
+
+
+app.post("/users/data", urlencodedParser, (req, res) => {
+    res.json(users)
+})
+
+app.post("/rules/data", urlencodedParser, (req, res) => {
+    res.json(rulesJson);
+})
+
 
 
 

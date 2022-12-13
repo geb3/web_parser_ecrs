@@ -43,7 +43,7 @@
                     <p><label for="rule3">Rule 3</label></p>
                     <p><input type="text" name="rule_3" id="rule1" placeholder="Tag"></p>
 
-                    <button class="button" type="submit">Preview</button><button class="button" type="submit">Send</button>
+                    <button class="button" type="submit">Preview/Send</button>
                 </form>
             </td>
             
@@ -58,20 +58,27 @@
             </td>
 
             <td style="vertical-align: top;">
-                <form method="POST" action="/panel">
-                
-                    <p><label for="login">Rule 1</label></p>
-                    <p><input type="text" name="user" id="rule1" placeholder="Tag #1"></p>
-
-                    <p><label for="passwd">Rule 2</label></p>
-                    <p><input type="text" name="pass" id="rule1" placeholder="Tag #2"></p>
-
-                    <button class="button" type="submit">Send</button>
-                </form>
+                <div class="buttonL">
+                    <form method="POST" action="/start">
+                        <p><input type="text" name="timeoutParser" id="timeout" placeholder="Interval (day)"></p>
+                        <button class="buttonS" type="submit">Start</button>
+                    </form>
+                    <form method="POST" action="/stop">
+                        <button class="buttonS" type="submit">Stop</button>
+                    </form>
+                    <form method="POST" action="/table" target="_blank">
+                        <button class="buttonS" type="submit">Download Table</button>
+                    </form>
+                    <form method="POST" action="/users/data" target="_blank">
+                        <button class="buttonS" type="submit">Users Data</button>
+                    </form>
+                    <form method="POST" action="/rules/data" target="_blank">
+                        <button class="buttonS" type="submit">Transmitted Rules</button>
+                    </form>
+                </div>
             </td>
         </table>
     </div>
-
 
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <script>

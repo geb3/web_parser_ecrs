@@ -1,20 +1,24 @@
 body {
     font-family: "Poppins";
     background-color: rgb(53, 53, 53);
+    height: 100%;
 }
 @font-face {
     font-family: "Poppins"; 
-    src: url("../style/fonts/Poppins-Medium.ttf") format("truetype"); 
+    src: url("../style/fonts/Poppins-SemiBold.ttf") format("truetype"); 
     font-style:italic; 
     font-weight:lighter; 
 }
 .info {
+    opacity: 0.8;
     appearance:none;
     font-family: "Poppins"; 
     -webkit-appearance:none;
     padding:0px;
     border:none;
-    background-color:#0068E8;
+    background-color:rgb(53, 53, 53);
+    border: solid 2px rgba(100, 100, 100);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     color:#fff;
     font-weight:800px;
     font-size: 16px;
@@ -128,13 +132,12 @@ table {
     border-radius: 6px;
     font-size: 14px;
     opacity: 0.8;
-    width:48%;
-    margin: 1%;
+    width:100%;
     margin-top: 11px;
 }
 .button:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-    opacity: 1; 
+    opacity: 1;
 }
 input[type=text] {
     font-family: "Poppins"; 
@@ -152,8 +155,6 @@ textarea {
     font-family: "Poppins"; 
     font-size: 14px;
 }
-
-
 .input-file {
 	position: relative;
 	display: inline-block;
@@ -182,10 +183,53 @@ span.input-file-style {
 .input-file span:hover {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     opacity: 1; 
+    scale: 1.2;
 }
 .input-file input[type=file] {
 	position: absolute;
 	z-index: -1;
 	opacity: 0;
 	display: block;
+}
+.buttonS {
+    appearance:none;
+    -webkit-appearance:none;
+    font-family: "Poppins"; 
+    padding:7px;
+    border:none;
+    background-color:#0068E8;
+    color:#fff;
+    font-weight:600;
+    border-radius: 6px;
+    font-size: 14px;
+    border: solid 2px rgb(255, 255, 255);
+    opacity: 0.8;
+    width:150px;
+    margin-top: 11px;
+    
+}
+.buttonS:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 1; 
+    border: solid 2px #0068E8;
+    scale: 1.2;
+}
+.buttonL {
+    appearance:none;
+    -webkit-appearance:none;
+    font-family: "Poppins"; 
+    padding:7px;
+    border:none;
+    background-color:#0068E8;
+    color:#fff;
+    font-weight:600;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0.8;
+    width:150px;
+    margin-top: 11px;
+}
+#timeout {
+    width: 130px;
+    height: 8px;
 }
