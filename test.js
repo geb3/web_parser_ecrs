@@ -1,3 +1,6 @@
-import fs from "fs";
+import {rules} from "./public/scripts/parser/check/rules.js";
 
-fs.writeFile("gfds.txt", "Привет МИГ-29!");
+
+console.log(rules);
+
+console.log(Object.keys(rules["id"]));

@@ -6,7 +6,9 @@ import bodyParser from "body-parser";
 import {dateTime} from './public/scripts/log.js';
 import {users} from "./users.js";
 import {rulesJson} from "./public/scripts/parser/rules/rules.js";
+import {rules} from "./public/scripts/parser/check/rules.js";
 import {parametersJson} from "./public/scripts/parser/parameters/parameters.js";
+import {statusJson} from "./public/scripts/parser/status/status.js";
 import serverRoutes from "./routes/server.js";
 import fs from 'fs';
 
@@ -87,13 +89,15 @@ app.post("/rules", urlencodedParser, (req, res) => {
         res.render("panel", {info: "Rules not Transmitted", preview: `Transferred:`});        
     }
     else {
-        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify({"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3}));
+        // const jsonRules = JSON.stringify({"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3});
+        let id = Object.keys(rules["id"]).length + 1;
+        rules["id"][id] = {"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3};
+        fs.writeFileSync('./public/scripts/parser/check/rules.json', JSON.stringify(rules));
         console.log(`${req.dateTime} Rules Transmitted`);
-        res.render("panel", {info: "Rules Transmitted", preview: `Transferred: \n${req.body.rule_1}\n${req.body.rule_2}\n${req.body.rule_3}`});
+        res.render("panel", {info: "Rules Transmitted", preview: `Transferred: \n${Object.values(rules["id"][id])}`});
     }
     
 })
-
 
 
 app.post("/start", urlencodedParser, (req, res) => {
@@ -113,8 +117,21 @@ app.post("/users/data", urlencodedParser, (req, res) => {
     res.json(users)
 })
 
-app.post("/rules/data", urlencodedParser, (req, res) => {
-    res.json(rulesJson);
+app.post("/downloadRules", urlencodedParser, (req, res) => {
+    const file = `./public/scripts/parser/check/rules.json`;
+    res.download(file);
+})
+
+app.post("/uploadRules", urlencodedParser, (req, res) => {
+    if (req.files == null) {
+        console.log(`${req.dateTime} File not Uploaded`);
+        res.render("panel", {info: "File not Uploaded", preview: `Preview`});
+    }
+    else {
+        console.log(`${req.dateTime} File Upload in Server Сompleted`)
+        req.files.xlsx.mv('public/scripts/parser/check/' + "rules.json");
+        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview`});
+    }
 })
 
 

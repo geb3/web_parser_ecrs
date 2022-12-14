@@ -13,20 +13,6 @@
     <div class="header">
         <button class="info" type="submit"><%= info %> </button>
     </div>
-
-
-    <div class="uploadFile">
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label class="input-file">
-                <input class="file" type="file" name="xlsx">		
-                <span class="input-file-style">Select File</span>
-          </label>
-            <p><input class="sendFile" type="submit" value="Send"></p>
-        </form>
-        <div class="warning">
-            <p>Support for formats only .xlsx</p>
-        </div> 
-    </div>
       
        
     <div class="form">
@@ -34,16 +20,28 @@
             <td style="vertical-align: top;">
                 <form method="POST" action="/rules">
 
-                    <p><label for="rule1">Rule 1</label></p>
-                    <p><input type="text" name="rule_1" id="rule1" placeholder="Tag"></p>
+                    <p><label for="rule1">URL</label></p>
+                    <p><input type="text" name="rule_1" placeholder="https://www.google.com/..."></p>
 
                     <p><label for="rule2">Rule 2</label></p>
-                    <p><input type="text" name="rule_2" id="rule1" placeholder="Tag"></p>
+                    <p><input type="text" name="rule_2" placeholder="Tag"></p>
 
                     <p><label for="rule3">Rule 3</label></p>
-                    <p><input type="text" name="rule_3" id="rule1" placeholder="Tag"></p>
+                    <p><input type="text" name="rule_3" placeholder="Tag"></p>
 
                     <button class="button" type="submit">Preview/Send</button>
+                </form>
+
+                <form method="POST" action="/downloadRules" target="_blank">
+                    <button class="button" type="submit">Download Rules</button>
+                </form>
+
+                <form action="/uploadRules" method="POST" enctype="multipart/form-data">
+                    <label class="input-file">
+                        <input type="file" name="xlsx">		
+                        <span class="input-file-style">Select File</span>
+                  </label>
+                    <p><input class="sendFile" type="submit" value="Upload Rules"></p>
                 </form>
             </td>
             
@@ -66,19 +64,28 @@
                     <form method="POST" action="/stop">
                         <button class="buttonS" type="submit">Stop</button>
                     </form>
-                    <form method="POST" action="/table" target="_blank">
-                        <button class="buttonS" type="submit">Download Table</button>
-                    </form>
                     <form method="POST" action="/users/data" target="_blank">
-                        <button class="buttonS" type="submit">Users Data</button>
-                    </form>
-                    <form method="POST" action="/rules/data" target="_blank">
-                        <button class="buttonS" type="submit">Transmitted Rules</button>
+                        <button class="buttonS" type="submit">Preview Users</button>
                     </form>
                 </div>
             </td>
         </table>
     </div>
+
+
+    <div class="uploadFile">
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label class="input-file">
+                <input class="file" type="file" name="xlsx">		
+                <span class="input-file-style">Select File</span>
+          </label>
+            <p><input class="sendFile" type="submit" value="Send"></p>
+        </form>
+        <div class="warning">
+            <p>Support for formats only .xlsx</p>
+        </div> 
+    </div>
+
 
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
     <script>
