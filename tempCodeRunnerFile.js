@@ -1,1 +1,1 @@
-id++;
+console.log(delete rules["id"][""]);

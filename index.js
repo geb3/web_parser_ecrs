@@ -94,7 +94,7 @@ app.post("/rules", urlencodedParser, (req, res) => {
         rules["id"][id] = {"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3};
         fs.writeFileSync('./public/scripts/parser/check/rules.json', JSON.stringify(rules));
         console.log(`${req.dateTime} Rules Transmitted`);
-        res.render("panel", {info: "Rules Transmitted", preview: `Transferred: \n${Object.values(rules["id"][id])}`});
+        res.render("panel", {info: "Rules Transmitted", preview: `Transferred: \n${Object.values(rules["id"])}`});
     }
     
 })

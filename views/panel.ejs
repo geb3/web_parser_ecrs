@@ -31,11 +31,26 @@
 
                     <button class="button" type="submit">Preview/Send</button>
                 </form>
+            </td>
 
-                <form method="POST" action="/downloadRules" target="_blank">
-                    <button class="button" type="submit">Download Rules</button>
-                </form>
+            <td>
+                <div class="vl"></div>
+            </td>
 
+            <td style="vertical-align: top;">
+                <div class="buttonL">
+                    <p>Actions on Rules</p>
+                    <form method="POST" action="/stop">
+                        <button class="buttonS" type="submit">Preview</button>
+                    </form>
+                    <form method="POST" action="/stop">
+                        <button class="buttonS" type="submit">Delete Last</button>
+                    </form>
+                    <form method="POST" action="/downloadRules" target="_blank">
+                        <button class="buttonS" type="submit">Download</button>
+                    </form>
+                </div>
+                
                 <form action="/uploadRules" method="POST" enctype="multipart/form-data">
                     <label class="input-file">
                         <input type="file" name="xlsx">		
@@ -44,7 +59,11 @@
                     <p><input class="sendFile" type="submit" value="Upload Rules"></p>
                 </form>
             </td>
-            
+
+            <td>
+                <div class="vl"></div>
+            </td>
+
             <td style="vertical-align: top;">
                 <div class="output">
                     <textarea rows="14" cols="35" name="text" readonly="readonly"><%= preview %></textarea>
@@ -69,6 +88,7 @@
                     </form>
                 </div>
             </td>
+
         </table>
     </div>
 
@@ -85,6 +105,7 @@
             <p>Support for formats only .xlsx</p>
         </div> 
     </div>
+    
 
 
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>
