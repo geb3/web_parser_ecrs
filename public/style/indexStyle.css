@@ -19,7 +19,7 @@ body {
     background-color:rgb(53, 53, 53);
     border: solid 2px rgba(100, 100, 100);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-    color:#fff;
+    color:#ffffff;
     font-weight:800px;
     font-size: 16px;
     border-radius: 6px;
@@ -35,12 +35,8 @@ body {
     margin-bottom: 25px;
 }
 hr{
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
-}
-ul {
-    padding-left: 15px;
-    margin-left: 0px;
 }
 .uploadFile {
     text-align: center;
@@ -55,6 +51,14 @@ ul {
     width: 30%;
     padding-bottom: 5px;
     padding-top: 5px;
+}
+.uploadFileRules {
+    text-align: center;
+    margin-top: 10px;
+    border: 2px solid rgb(255, 0, 0);
+    border-radius: 6px;
+    background-color: rgb(53, 53, 53);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 input[type=file] {
     font-family: "Poppins";
@@ -253,4 +257,54 @@ span.input-file-style {
 #timeout {
     width: 130px;
     height: 8px;
+}
+#deleteRules {
+    margin-top: 10px;
+    width: 130px;
+    height: 8px;
+}
+.input-fileR {
+	position: relative;
+	display: inline-block;
+    
+}
+.input-fileR span {
+    appearance:none;
+    -webkit-appearance:none;
+    font-family: "Poppins"; 
+    padding:7px;
+    border:none;
+    background-color:#0068E8;
+    color:#fff;
+    font-weight:600;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+span.input-file-styleR {
+    appearance:none;
+    -webkit-appearance:none;
+    font-family: "Poppins"; 
+    padding:7px;
+    border:none;
+    background-color:#0068E8;
+    color:#fff;
+    font-weight:600;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0.8;
+    margin-top: 11px;
+}
+.input-fileR span:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    opacity: 1; 
+}
+.input-fileR input[type=file] {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+	display: block;
+}
+input[type=submit]{
+    width: 120px;
 }

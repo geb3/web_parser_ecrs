@@ -14,6 +14,21 @@
         <button class="info" type="submit"><%= info %> </button>
     </div>
       
+    <div class="uploadFile">
+        <div class="warning">
+            <p>Download an Excel Spreadsheet</p>
+        </div> 
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <label class="input-file">
+                <input class="file" type="file" name="xlsx">		
+                <span class="input-file-style">Select File .xlsx</span>
+          </label>
+            <p><input class="sendFile" type="submit" value="Upload File"></p>
+        </form>
+        <div class="warning">
+            <p>Support for formats only .xlsx</p>
+        </div> 
+    </div>
        
     <div class="form">
         <table>
@@ -29,7 +44,7 @@
                     <p><label for="rule3">Rule 3</label></p>
                     <p><input type="text" name="rule_3" placeholder="Tag"></p>
 
-                    <button class="button" type="submit">Preview/Send</button>
+                    <button class="button" type="submit">Send/Preview</button>
                 </form>
             </td>
 
@@ -40,24 +55,38 @@
             <td style="vertical-align: top;">
                 <div class="buttonL">
                     <p>Actions on Rules</p>
-                    <form method="POST" action="/stop">
+
+                    <form method="POST" action="/deleteRules">
+                        <p><input type="text" name="deleteRules" id="deleteRules" placeholder="id rules"></p>
+                        <button class="buttonS" type="submit">Delete Rules</button>
+                    </form>
+
+                    <form method="POST" action="/previewRules">
                         <button class="buttonS" type="submit">Preview</button>
                     </form>
-                    <form method="POST" action="/stop">
-                        <button class="buttonS" type="submit">Delete Last</button>
+
+                    <form method="POST" action="/previewRulesJson" target="_blank">
+                        <button class="buttonS" type="submit">Preview JSON</button>
                     </form>
+
                     <form method="POST" action="/downloadRules" target="_blank">
-                        <button class="buttonS" type="submit">Download</button>
+                        <button class="buttonS" type="submit">Download Rules</button>
                     </form>
+                    
+                    <div class="uploadFileRules">
+                        <p>Follow JSON Format</p>
+                        <hr>
+                        <form action="/uploadRules" method="POST" enctype="multipart/form-data">
+                            <label class="input-fileR">
+                                <input type="file" name="xlsx">		
+                                <span class="input-file-styleR">Select File</span>
+                        </label>
+                            <p><input class="sendFileR" type="submit" value="Upload Rules"></p>
+                        </form>
+                    </div>
                 </div>
                 
-                <form action="/uploadRules" method="POST" enctype="multipart/form-data">
-                    <label class="input-file">
-                        <input type="file" name="xlsx">		
-                        <span class="input-file-style">Select File</span>
-                  </label>
-                    <p><input class="sendFile" type="submit" value="Upload Rules"></p>
-                </form>
+                
             </td>
 
             <td>
@@ -70,12 +99,11 @@
                 </div>
             </td>
 
-            <td>
-                <div class="vl"></div>
-            </td>
 
-            <td style="vertical-align: top;">
-                <div class="buttonL">
+        </table>
+    </div>
+
+    <div class="buttonL">
                     <form method="POST" action="/start">
                         <p><input type="text" name="timeoutParser" id="timeout" placeholder="Interval (day)"></p>
                         <button class="buttonS" type="submit">Start</button>
@@ -87,25 +115,6 @@
                         <button class="buttonS" type="submit">Preview Users</button>
                     </form>
                 </div>
-            </td>
-
-        </table>
-    </div>
-
-
-    <div class="uploadFile">
-        <form action="/upload" method="POST" enctype="multipart/form-data">
-            <label class="input-file">
-                <input class="file" type="file" name="xlsx">		
-                <span class="input-file-style">Select File</span>
-          </label>
-            <p><input class="sendFile" type="submit" value="Send"></p>
-        </form>
-        <div class="warning">
-            <p>Support for formats only .xlsx</p>
-        </div> 
-    </div>
-    
 
 
     <script src="https://snipp.ru/cdn/jquery/2.1.1/jquery.min.js"></script>

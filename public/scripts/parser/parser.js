@@ -6,11 +6,11 @@ import XlsxPopulate from "xlsx-populate";
 
 
 const __dirname = path.resolve();
-const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
-const rulesJson = loadJSON('./rules/rules.json');
-const parametersJson = loadJSON('./parameters/parameters.json');
+// const loadJSON = (path) => JSON.parse(fs.readFileSync(new URL(path, import.meta.url)));
+// const rulesJson = loadJSON('./rules/rules.json');
+// const parametersJson = loadJSON('./parameters/parameters.json');
 
-console.log(rulesJson, parametersJson);
+// console.log(rulesJson, parametersJson);
 
 // parse(urls[0]);
 
