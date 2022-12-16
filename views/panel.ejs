@@ -35,8 +35,8 @@
             <td style="vertical-align: top;">
                 <form method="POST" action="/rules">
 
-                    <p><label for="rule1">URL</label></p>
-                    <p><input type="text" name="rule_1" placeholder="https://www.google.com/..."></p>
+                    <p><label for="url">URL</label></p>
+                    <p><input type="text" name="url" placeholder="https://www.google.com/..."></p>
 
                     <p><label for="rule2">Rule 2</label></p>
                     <p><input type="text" name="rule_2" placeholder="Tag"></p>
@@ -95,8 +95,11 @@
 
             <td style="vertical-align: top;">
                 <div class="output">
-                    <textarea rows="14" cols="35" name="text" readonly="readonly"><%= preview %></textarea>
+                    <textarea rows="15" cols="30" name="text" readonly="readonly"><%= preview %></textarea>
                 </div>
+                <form method="POST" action="/writeTable">
+                    <button class="button" type="submit">Write to Table</button>
+                </form>
             </td>
 
 

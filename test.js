@@ -1,18 +1,14 @@
-import {rules} from "./public/scripts/parser/check/rules.js";
+import {rules} from "./public/scripts/parser/rules/rules.js";
 
 
-console.log(rules);
-
-let id = Object.keys(rules["id"]);
-id.forEach((id)=>{
-    if (id == "1") console.log("Yes");
-    else console.log("No");
-})
-console.log(id);
+const arr = [1, 2, 3];
 // console.log(id);s9
 // console.log(idElem);
-
-
+const res = [];
+arr.forEach((el) => {
+    res.push(el);
+})
+console.log(res);
 
 
 

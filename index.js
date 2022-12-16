@@ -5,7 +5,7 @@ import path from "path";
 import bodyParser from "body-parser";
 import {dateTime} from './public/scripts/log.js';
 import {users} from "./users.js";
-import {rules} from "./public/scripts/parser/check/rules.js";
+import {rules} from "./public/scripts/parser/rules/rules.js";
 import {parametersJson} from "./public/scripts/parser/parameters/parameters.js";
 import {statusJson} from "./public/scripts/parser/status/status.js";
 import serverRoutes from "./routes/server.js";
@@ -57,9 +57,9 @@ function previewFormat(rules) {
     let id = Object.keys(rules["id"]);
     let previewJson = [];
     id.forEach((id) => {
-        previewJson += `id: ${id} = ${Object.values(rules["id"][id])},\n`;
+        previewJson += `\nid: ${id} {\n\t${Object.values(rules["id"][id])}\n}`;
     })
-    previewJson = previewJson.replace(/,/g, ';\n\t');
+    previewJson = previewJson.replace(/,/g, '\n\t');
     return previewJson;
 }
 
@@ -92,7 +92,7 @@ app.post('/upload', function(req, res) {
 
 
 app.post("/rules", urlencodedParser, (req, res) => {
-    if (req.body.rule_1 == "" || req.body.rule_2 == "" || req.body.rule_3 == "") {
+    if (req.body.url == "" || req.body.rule_2 == "" || req.body.rule_3 == "") {
         console.log(`${req.dateTime} Rules not Transmitted`)
         res.render("panel", {info: "Rules not Transmitted", preview: `Preview Rules:\n${previewFormat(rules)}`});        
     }
@@ -101,8 +101,8 @@ app.post("/rules", urlencodedParser, (req, res) => {
         let lastId = Object.keys(rules["id"]).length - 1;
         let id = Object.keys(rules["id"])[String(lastId)];
         id++;
-        rules["id"][id] = {"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3};
-        fs.writeFileSync('./public/scripts/parser/check/rules.json', JSON.stringify(rules));
+        rules["id"][id] = {"url": req.body.url, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3};
+        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
         console.log(`${req.dateTime} Rule Added with ID: ${id}`);
         res.render("panel", {info: `Rule Added with ID: ${id}`, preview: `Preview Rules:\n${previewFormat(rules)}`});
     }
@@ -135,14 +135,14 @@ app.post("/deleteRules", urlencodedParser, (req, res) => {
         let lastId = Object.keys(rules["id"]).length -1;
         let id = Object.keys(rules["id"])[String(lastId)];
         delete rules["id"][id];
-        fs.writeFileSync('./public/scripts/parser/check/rules.json', JSON.stringify(rules));
+        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
         res.render("panel", {info: `Last Rule with ID: ${id} has been Removed`, preview: `Preview Rules:\n${previewFormat(rules)}`});
         console.log(`${req.dateTime} Last Rule with ID: ${id} has been Removed`);
     }
     if (req.body.deleteRules != "") {
         let id = req.body.deleteRules;
         delete rules["id"][id];
-        fs.writeFileSync('./public/scripts/parser/check/rules.json', JSON.stringify(rules));
+        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
         res.render("panel", {info: `Rule with ID: ${id} has been Deleted`, preview: `Preview Rules:\n${previewFormat(rules)}`});
         console.log(`${req.dateTime} Rule with ID: ${id} has been Deleted`);
     }
@@ -153,7 +153,7 @@ app.post("/users/data", urlencodedParser, (req, res) => {
 })
 
 app.post("/downloadRules", urlencodedParser, (req, res) => {
-    const file = `./public/scripts/parser/check/rules.json`;
+    const file = `./public/scripts/parser/rules/rules.json`;
     res.download(file);
     console.log(`${req.dateTime} Client Downloaded the .json File`);
 })

@@ -46,17 +46,26 @@ function parser(urls) {
     }
 
     let i = 0;
+    const $arr = [];
     const interval = setInterval(() => {
         const $ = parse(urls[i]);
-        console.log($);
-        if (typeof urls[i] == "undefined") clearInterval(interval);
+        console.log(urls[i]);
+        if (typeof urls[i] == "undefined") {
+            clearInterval(interval);
+            return $arr;
+        }
+        else {
+            $arr.push($);
+        }
+        i++;
+        
     }, 2000)
     
 }
 
 console.log(urls);
 statusParse(String(urls.length), String(1));
-parser(urls);
+console.log(await parser(urls));
 
 
 // statusParse(String(urls.length), "1");
