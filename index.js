@@ -6,8 +6,8 @@ import bodyParser from "body-parser";
 import {dateTime} from './public/scripts/log.js';
 import {users} from "./users.js";
 import {rules} from "./public/scripts/parser/rules/rules.js";
-import {parametersJson} from "./public/scripts/parser/parameters/parameters.js";
-import {statusJson} from "./public/scripts/parser/status/status.js";
+import {previewParse} from "./public/scripts/parser/previewParse/previewParse.js";
+import {parametersPreview} from "./public/scripts/parser/previewParse/parametersPreview.js";
 import serverRoutes from "./routes/server.js";
 import fs from 'fs';
 
@@ -67,7 +67,7 @@ app.post("/panel", urlencodedParser, (req, res) => {
     let access = checkUsers(req.body.user, req.body.pass);
     if (access == 1) {
         console.log(`${req.dateTime} Logged in: ${req.body.user}`);
-        res.render("panel", {info: `Logged in ${req.body.user}`, preview: `Preview Rules`});
+        res.render("panel", {info: `Logged in ${req.body.user}`, preview: `Preview Rules`, previewParse: ""});
     }
     if (access == 0) {
         console.log(`${req.dateTime} Login attempt`);
@@ -80,31 +80,31 @@ app.post("/panel", urlencodedParser, (req, res) => {
 app.post('/upload', function(req, res) {
     if (req.files == null) {
         console.log(`${req.dateTime} File not Uploaded`);
-        res.render("panel", {info: "File not Uploaded", preview: `Preview Rules`});
+        res.render("panel", {info: "File not Uploaded", preview: `Preview Rules`, previewParse: ""});
     }
     else {
         console.log(`${req.dateTime} File Upload in Server Сompleted`)
         req.files.xlsx.mv('public/scripts/parser/upload_file/' + "table_data.xlsx");
-        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview Rules`});
+        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview Rules`, previewParse: ""});
     }
 });
 
 
 
 app.post("/rules", urlencodedParser, (req, res) => {
-    if (req.body.url == "" || req.body.rule_2 == "" || req.body.rule_3 == "") {
+    if (req.body.url == "" || req.body.tag == "") {
         console.log(`${req.dateTime} Rules not Transmitted`)
-        res.render("panel", {info: "Rules not Transmitted", preview: `Preview Rules:\n${previewFormat(rules)}`});        
+        res.render("panel", {info: "Rules not Transmitted", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});        
     }
     else {
         // const jsonRules = JSON.stringify({"rule_1": req.body.rule_1, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3});
         let lastId = Object.keys(rules["id"]).length - 1;
         let id = Object.keys(rules["id"])[String(lastId)];
         id++;
-        rules["id"][id] = {"url": req.body.url, "rule_2": req.body.rule_2,"rule_3": req.body.rule_3};
+        rules["id"][id] = {"Url": req.body.url, "Tag": req.body.tag, "Attribute": req.body.attribute}; 
         fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
         console.log(`${req.dateTime} Rule Added with ID: ${id}`);
-        res.render("panel", {info: `Rule Added with ID: ${id}`, preview: `Preview Rules:\n${previewFormat(rules)}`});
+        res.render("panel", {info: `Rule Added with ID: ${id}`, preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
     }
 })
 
@@ -112,18 +112,18 @@ app.post("/rules", urlencodedParser, (req, res) => {
 app.post("/start", urlencodedParser, (req, res) => {
     if (req.body.timeoutParser == "") {
         console.log(`${req.dateTime} Launch Interval is not Selected`);
-        res.render("panel", {info: "Launch Interval is not Selected", preview: `Preview Rules`});
+        res.render("panel", {info: "Launch Interval is not Selected", preview: `Preview Rules`, previewParse: ""});
     }
     else {
         fs.writeFileSync('./public/scripts/parser/parameters/parameters.json', JSON.stringify({"timeout": req.body.timeoutParser}));
         console.log(`${req.dateTime} Launch Parser`);
-        res.render("panel", {info: "Waiting...", preview: `Preview Rules`});
+        res.render("panel", {info: "Waiting...", preview: `Preview Rules`, previewParse: ""});
     }
 })
 
 
 app.post("/previewRules", urlencodedParser, (req, res) => {
-    res.render("panel", {info: "Preview Rules", preview: `Preview Rules:\n${previewFormat(rules)}`});
+    res.render("panel", {info: "Preview Rules", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
 })
 
 app.post("/previewRulesJson", urlencodedParser, (req, res) => {
@@ -131,21 +131,12 @@ app.post("/previewRulesJson", urlencodedParser, (req, res) => {
 })
 
 app.post("/deleteRules", urlencodedParser, (req, res) => {
-    if (req.body.deleteRules == "") {
-        let lastId = Object.keys(rules["id"]).length -1;
-        let id = Object.keys(rules["id"])[String(lastId)];
-        delete rules["id"][id];
-        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
-        res.render("panel", {info: `Last Rule with ID: ${id} has been Removed`, preview: `Preview Rules:\n${previewFormat(rules)}`});
-        console.log(`${req.dateTime} Last Rule with ID: ${id} has been Removed`);
-    }
-    if (req.body.deleteRules != "") {
-        let id = req.body.deleteRules;
-        delete rules["id"][id];
-        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
-        res.render("panel", {info: `Rule with ID: ${id} has been Deleted`, preview: `Preview Rules:\n${previewFormat(rules)}`});
-        console.log(`${req.dateTime} Rule with ID: ${id} has been Deleted`);
-    }
+    let lastId = Object.keys(rules["id"]).length -1;
+    let id = Object.keys(rules["id"])[String(lastId)];
+    delete rules["id"][id];
+    fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
+    res.render("panel", {info: `Last Rule with ID: ${id} has been Removed`, preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
+    console.log(`${req.dateTime} Last Rule with ID: ${id} has been Removed`);
 })
 
 app.post("/users/data", urlencodedParser, (req, res) => {
@@ -160,18 +151,41 @@ app.post("/downloadRules", urlencodedParser, (req, res) => {
 
 app.post("/uploadRules", urlencodedParser, (req, res) => {
     if (req.files == null) {
-        res.render("panel", {info: "File not Uploaded", preview: `Preview Rules`});
+        res.render("panel", {info: "File not Uploaded", preview: `Preview Rules`, previewParse: ""});
         console.log(`${req.dateTime} File not Uploaded`);
     }
     else {
         req.files.xlsx.mv('public/scripts/parser/check/' + "rules.json");
-        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview Rules:\n${previewFormat(rules)}`});
+        res.render("panel", {info: "File Upload in Server Completed", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
         console.log(`${req.dateTime} File Upload in Server Сompleted`)
     }
 })
 
+app.post("/previewParse", urlencodedParser, (req, res) => { 
+    if (req.body.idRules == "") {
+        parametersPreview["idRules"] = 1;
+        parametersPreview["eqElement"] = "";
+        fs.writeFileSync('./public/scripts/parser/previewParse/parametersPreview.json', JSON.stringify(parametersPreview));
+        res.render("panel", {info: "Id Rule not Entered", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
+    }
+    else {
+        parametersPreview["idRules"] = req.body.idRules;
+        parametersPreview["eqElement"] = req.body.eqElement;
+        fs.writeFileSync('./public/scripts/parser/previewParse/parametersPreview.json', JSON.stringify(parametersPreview));
+        res.render("panel", {info: "Preview Parse Result", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: previewParse});
+    }
+})
 
-
+app.post("/transferEqElement", urlencodedParser, (req, res) => { 
+    if (req.body.idRule == "" || req.body.transferEqElement == "") {
+        res.render("panel", {info: "Element and ID not Transfer", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
+    }
+    else {
+        rules["id"][req.body.idRule]["eqElement"] = req.body.transferEqElement;
+        fs.writeFileSync('./public/scripts/parser/rules/rules.json', JSON.stringify(rules));
+        res.render("panel", {info: "Element and ID Transfer", preview: `Preview Rules:\n${previewFormat(rules)}`, previewParse: ""});
+    }
+})
 
 
 

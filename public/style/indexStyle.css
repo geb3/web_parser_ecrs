@@ -179,6 +179,7 @@ textarea {
     border-radius: 6px;
     font-family: "Poppins"; 
     font-size: 14px;
+    resize: none;
 }
 .input-file {
 	position: relative;
@@ -254,12 +255,8 @@ span.input-file-style {
     width:150px;
     margin-top: 11px;
 }
-#timeout {
-    width: 130px;
-    height: 8px;
-}
-#deleteRules {
-    margin-top: 10px;
+#previewParse {
+    margin-top: 5px;
     width: 130px;
     height: 8px;
 }
