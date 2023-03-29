@@ -2,11 +2,11 @@
   "name": "npm-web-parser-ecrs",
   "description": "![](https://komarev.com/ghpvc/?username=your-geb3)",
   "version": "1.0.0",
-  "main": "index.js",
-  "type": "module",
+  "main": "index1.js",
   "scripts": {
-    "serve": "nodemon index.js",
-    "start": "node index.js"
+    "serve": "nodemon index1.js",
+    "start": "node index1.js",
+    "proxiesUpdate": "node index.js update_proxies"
   },
   "repository": {
     "type": "git",
@@ -20,15 +20,18 @@
   "homepage": "https://github.com/geb3/web_parser_ecrs#readme",
   "dependencies": {
     "axios": "^1.2.1",
-    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
     "express-fileupload": "^1.4.0",
+    "formidable": "^2.1.1",
     "fs": "^0.0.1-security",
+    "proxy-agent": "^5.0.0",
+    "puppeteer": "^19.7.4",
+    "puppeteer-page-proxy": "^1.3.0",
+    "queue": "^6.0.2",
+    "user-agents": "^1.0.1316",
     "xlsx-populate": "^1.21.0"
-  },
-  "devDependencies": {
-    "@types/express": "^4.17.14",
-    "nodemon": "^2.0.20"
   }
 }

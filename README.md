@@ -1,32 +1,43 @@
 # Web Parser
 
-![](https://komarev.com/ghpvc/?username=your-geb3)
+### Подготовка к установке
+WIN:
+- Скачайте node.js, сделать это можно тут https://nodejs.org/en
+lts версии
+- Перейдите в папку проекта через консоль и пропишите `npm i`
+- Перейдите в папку /frontend и пропишите `npm i`, после выполнения: `npm run build`
+- Для установки менеджера процессов Pm2 пропишите `npm i -g pm2`
 
-image.png
+### Запустить сервер
+Порт по умолчанию = 8080
 
-### Run Server
-Default Port = 3000
-```
-export PORT=4200 && npm run serve
-```
+После установки всех зависимостей и менеджера процессов pm2, его необходимо настроить:
+- Добавим автозапуск процессов после перезагрузки `pm2 startup`
+- Добавим входную точку нашего приложения `pm2 start server.js --name ВАШЕ_ИМЯ_ПРИЛОЖЕНИЯ --time -i max -e /logs/err.log -o /logs/out.log -l /logs/full.log` (-- time - для отображения времени в логах, --name для имени процесса в дэшборде менеджера, -i max: запуск в кластерном режиме. Подробнее тут: https://pm2.keymetrics.io/docs/usage/cluster-mode/)
+- Сохраним наш список процессов `pm2 save`
+- Открыть панель мониторинга: `pm2 monit`
+- Открыть список процессов: `pm2 list`
+- Открыть логи: `pm2 logs`
 
-### Add a User
-Edit the file user.js
-```
-export var users = {
-    "admin": "1",
-    "user name": "password",
-};
-```
+Официальная документация Pm2 https://pm2.keymetrics.io/docs/usage/quick-start/
 
-### Check a Users
-Add after address /users/list
+### Веб админка
+По умолчанию пытается развернуться на всех интерфейсах (и на локал хосте и на внешнем айпи), если хотите сменить порт в файле `server.js` поменяйте 91 строку на
+```js
+app.listen(port, "ip")
+//'port' - число, 'ip - айпи запросы от котрого необходимо слушать
+//пример:
+app.listen(3001, "127.0.0.1")
 ```
-http://localhost:3000/users/list
-```
+Также на 92 строке для удобства надо будет сменить лог, лог приводите к виду http://ip:port
 
-### Package Versions:
-1.  "nodejs" = "16.17.0",
-2.  "npm" = "8.15.0",
-3.  "ejs": "3.1.8",
-4.  "express": "4.18.2",
+### Добавить пользователя
+```
+node index.js adduser username password
+```
+### Добавить прокси
+- Добавьте прокси в соответствующие .txt файлы в /proxies
+брал бесплатные тут https://advanced.name/ru/freeproxy?type=socks4 и тут http://free-proxy.cz/ru/proxylist/country/all/socks5/ping/all/5
+- После добавления, пропишите `npm run proxiesUpdate`
+
+! Подходят только SOCKS5, SOCKS4 и HTTP
