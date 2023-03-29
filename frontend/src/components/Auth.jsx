@@ -10,7 +10,6 @@ const Auth = ({checkLoginData}) => {
     return (
         <div className="form-signin">
             <LoginForm onSubmit={logIn} ref={inputData} />
-            <p className="mt-5 mb-3 text-muted">© 2023 - <a href="https://github.com/sirok1">sirok1</a></p>
         </div>
     );
 };
