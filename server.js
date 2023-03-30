@@ -88,5 +88,9 @@ app.get('/api/download/table_data.xlsx', (req, res) => {
     res.download(Util.checkPath(path.join(__dirname, 'tables/table_data.xlsx'), 'file', 'table_data.xlsx'))
 })
 
-app.listen(8080)
+
+const ip_host = "192.168.1.109";
+const port_host = 8080;
+
+app.listen(port_host, ip_host);
 console.log('app listens http://localhost:8080')
